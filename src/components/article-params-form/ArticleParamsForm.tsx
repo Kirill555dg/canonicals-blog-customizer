@@ -19,8 +19,11 @@ import { RadioGroup } from '../radio-group';
 import { Select } from '../select';
 import { Spacing } from '../spacing';
 import { Separator } from '../separator';
+import { useArticleState } from 'src/hooks/useArticleState';
 
 export const ArticleParamsForm = () => {
+	const { articleState, dispatchArticleState } = useArticleState();
+
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const toggle = () => {
 		setIsOpen(!isOpen);
@@ -28,28 +31,28 @@ export const ArticleParamsForm = () => {
 	};
 
 	// Выпадающий список для шрифтов
-	const [familyValue, setFamilyValue] = useState<OptionType>(
-		defaultArticleState.fontFamilyOption
+	const [fontFamilyValue, setFamilyValue] = useState<OptionType>(
+		articleState.fontFamilyOption
 	);
 
 	// Радиокнопки для размера шрифта
 	const [fontSizeValue, setFontSizeValue] = useState<OptionType>(
-		defaultArticleState.fontSizeOption
+		articleState.fontSizeOption
 	);
 
 	// Выпадоющий список для цвета шрифта
 	const [fontColorValue, setFontColorValue] = useState<OptionType>(
-		defaultArticleState.fontColor
+		articleState.fontColor
 	);
 
 	// Выпадающий список для цвета фона
 	const [backgroundColorValue, setBackgroundColorValue] = useState<OptionType>(
-		defaultArticleState.backgroundColor
+		articleState.backgroundColor
 	);
 
 	// Выпадающий список для ширины контента
 	const [contentWidthValue, setContentWidthValue] = useState<OptionType>(
-		defaultArticleState.contentWidth
+		articleState.contentWidth
 	);
 
 	return (
@@ -68,7 +71,7 @@ export const ArticleParamsForm = () => {
 					</Text>
 					<Spacing size={50} />
 					<Select
-						selected={familyValue}
+						selected={fontFamilyValue}
 						options={fontFamilyOptions}
 						onChange={setFamilyValue}
 						title='ШРИФТ'
@@ -105,8 +108,32 @@ export const ArticleParamsForm = () => {
 						title='ШИРИНА КОНТЕНТА'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' type='reset' />
-						<Button title='Применить' type='submit' />
+						<Button
+							title='Сбросить'
+							type='reset'
+							onClick={() =>
+								dispatchArticleState({
+									type: 'setArticleState',
+									payload: defaultArticleState,
+								})
+							}
+						/>
+						<Button
+							title='Применить'
+							type='button'
+							onClick={() =>
+								dispatchArticleState({
+									type: 'setArticleState',
+									payload: {
+										fontFamilyOption: fontFamilyValue,
+										fontSizeOption: fontSizeValue,
+										fontColor: fontColorValue,
+										backgroundColor: backgroundColorValue,
+										contentWidth: contentWidthValue,
+									},
+								})
+							}
+						/>
 					</div>
 				</form>
 			</aside>
