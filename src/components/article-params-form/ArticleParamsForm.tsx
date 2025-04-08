@@ -90,6 +90,7 @@ export const ArticleParamsForm = ({
 					<Spacing size={50} />
 					<Select
 						selected={fontColorValue}
+						unavailable={backgroundColorValue}
 						options={fontColors}
 						onChange={setFontColorValue}
 						title='ЦВЕТ ШРИФТА'
@@ -99,6 +100,7 @@ export const ArticleParamsForm = ({
 					<Spacing size={50} />
 					<Select
 						selected={backgroundColorValue}
+						unavailable={fontColorValue}
 						options={backgroundColors}
 						onChange={setBackgroundColorValue}
 						title='ЦВЕТ ФОНА'

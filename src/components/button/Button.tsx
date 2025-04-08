@@ -18,7 +18,7 @@ export const Button = ({
 			onClick={(e) => {
 				if (onClick) onClick(e);
 			}}>
-			<Text weight={800} uppercase dynamic>
+			<Text weight={800} uppercase>
 				{title}
 			</Text>
 		</button>
