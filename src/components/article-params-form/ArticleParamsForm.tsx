@@ -5,7 +5,6 @@ import { Text } from 'components/text';
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { ClickProvider } from 'src/contexts/click/ClickProvider';
 import {
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -14,16 +13,22 @@ import {
 	OptionType,
 	backgroundColors,
 	contentWidthArr,
+	ArticleStateType,
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
 import { Select } from '../select';
 import { Spacing } from '../spacing';
 import { Separator } from '../separator';
-import { useArticleState } from 'src/hooks/useArticleState';
 
-export const ArticleParamsForm = () => {
-	const { articleState, dispatchArticleState } = useArticleState();
+interface ArticleParamsFormProps {
+	articleState: ArticleStateType;
+	onChange: (changedArticleState: ArticleStateType) => void;
+}
 
+export const ArticleParamsForm = ({
+	articleState,
+	onChange,
+}: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const toggle = () => {
 		setIsOpen(!isOpen);
@@ -57,9 +62,7 @@ export const ArticleParamsForm = () => {
 
 	return (
 		<>
-			<ClickProvider state={isOpen} onClick={toggle}>
-				<ArrowButton />
-			</ClickProvider>
+			<ArrowButton state={isOpen} onClick={toggle} />
 			<aside
 				className={clsx(
 					styles.container,
@@ -111,28 +114,24 @@ export const ArticleParamsForm = () => {
 						<Button
 							title='Сбросить'
 							type='reset'
-							onClick={() =>
-								dispatchArticleState({
-									type: 'setArticleState',
-									payload: defaultArticleState,
-								})
-							}
+							onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+								e.preventDefault();
+								onChange(defaultArticleState);
+							}}
 						/>
 						<Button
 							title='Применить'
 							type='button'
-							onClick={() =>
-								dispatchArticleState({
-									type: 'setArticleState',
-									payload: {
-										fontFamilyOption: fontFamilyValue,
-										fontSizeOption: fontSizeValue,
-										fontColor: fontColorValue,
-										backgroundColor: backgroundColorValue,
-										contentWidth: contentWidthValue,
-									},
-								})
-							}
+							onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+								e.preventDefault();
+								onChange({
+									fontFamilyOption: fontFamilyValue,
+									fontSizeOption: fontSizeValue,
+									fontColor: fontColorValue,
+									backgroundColor: backgroundColorValue,
+									contentWidth: contentWidthValue,
+								});
+							}}
 						/>
 					</div>
 				</form>
