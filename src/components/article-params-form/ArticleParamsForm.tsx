@@ -2,19 +2,30 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 
 import styles from './ArticleParamsForm.module.scss';
+import clsx from 'clsx';
+import { useState } from 'react';
+import { ClickProvider } from 'src/contexts/click/ClickProvider';
 
 export const ArticleParamsForm = () => {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const toggle = () => {
+		setIsOpen(!isOpen);
+		console.log(isOpen);
+	};
+
 	return (
 		<>
-			<ArrowButton />
+			<ClickProvider state={isOpen} onClick={toggle}>
+				<ArrowButton />
+			</ClickProvider>
 			<aside
-				className={styles.container}>
+				className={clsx(
+					styles.container,
+					isOpen ? styles.container_open : null
+				)}>
 				<form className={styles.form}>
 					<div className={styles.bottomContainer}>
-						<Button
-							title='Сбросить'
-							type='reset'
-						/>
+						<Button title='Сбросить' type='reset' />
 						<Button title='Применить' type='submit' />
 					</div>
 				</form>
