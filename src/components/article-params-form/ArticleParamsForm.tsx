@@ -12,10 +12,13 @@ import {
 	fontColors,
 	defaultArticleState,
 	OptionType,
+	backgroundColors,
+	contentWidthArr,
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
 import { Select } from '../select';
 import { Spacing } from '../spacing';
+import { Separator } from '../separator';
 
 export const ArticleParamsForm = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -37,6 +40,16 @@ export const ArticleParamsForm = () => {
 	// Выпадоющий список для цвета шрифта
 	const [fontColorValue, setFontColorValue] = useState<OptionType>(
 		defaultArticleState.fontColor
+	);
+
+	// Выпадающий список для цвета фона
+	const [backgroundColorValue, setBackgroundColorValue] = useState<OptionType>(
+		defaultArticleState.backgroundColor
+	);
+
+	// Выпадающий список для ширины контента
+	const [contentWidthValue, setContentWidthValue] = useState<OptionType>(
+		defaultArticleState.contentWidth
 	);
 
 	return (
@@ -74,6 +87,22 @@ export const ArticleParamsForm = () => {
 						options={fontColors}
 						onChange={setFontColorValue}
 						title='ЦВЕТ ШРИФТА'
+					/>
+					<Spacing size={50} />
+					<Separator />
+					<Spacing size={50} />
+					<Select
+						selected={backgroundColorValue}
+						options={backgroundColors}
+						onChange={setBackgroundColorValue}
+						title='ЦВЕТ ФОНА'
+					/>
+					<Spacing size={50} />
+					<Select
+						selected={contentWidthValue}
+						options={contentWidthArr}
+						onChange={setContentWidthValue}
+						title='ШИРИНА КОНТЕНТА'
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' />
