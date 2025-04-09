@@ -8,11 +8,12 @@
 	text-align: center;
 	box-sizing: border-box;
 	border: 1px solid #000;
+	--font-color: #000;
 }
 
 .reset_button:hover {
-	--font-color: #ffffff;
-	background: var(--gold, #000000);
+	--font-color: #FFF;
+	background: var(--gold, #000);
 }
 
 .submit_button {
@@ -26,6 +27,7 @@
 	box-sizing: border-box;
 	border: 1px solid #000000;
 	background-color: #ffc802;
+	--font-color: #000;
 }
 
 .submit_button:hover {

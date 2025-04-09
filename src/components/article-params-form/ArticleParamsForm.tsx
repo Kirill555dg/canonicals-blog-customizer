@@ -112,6 +112,7 @@ export const ArticleParamsForm = ({
 						onChange={setContentWidthValue}
 						title='ШИРИНА КОНТЕНТА'
 					/>
+					<Spacing size={207} />
 					<div className={styles.bottomContainer}>
 						<Button
 							title='Сбросить'
